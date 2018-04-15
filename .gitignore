@@ -40,5 +40,6 @@ public/images/emoji
 
 # Mac finder artifacts
 .DS_Store
+.swp
 
 coverage/

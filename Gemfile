@@ -65,6 +65,7 @@ gem 'omniauth-google-oauth2', '~> 0.2'
 gem 'carrierwave', '~> 0.10'
 gem 'jquery-fileupload-rails', '~> 0.4'
 gem 'qiita-markdown'
+gem 'gemoji', '~> 2.0'
 
 group :development do
   gem 'bullet'

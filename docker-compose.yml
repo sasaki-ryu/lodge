@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: lodge-mysql
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=lodge
+      - TZ=JST
+        #  solr:
+        #    container_name: lodge-solr
+        #    image: solr:7.1
+        #    ports:
+        #     - "8983:8983"
+        #    volumes:
+        #     - ./tmp/solr/core:/opt/solr/server/solr/mycores
+        #    restart: always
+  app:
+    build: .
+    container_name: lodge-app
+    volumes:
+        - ./.env.example:/export/lodge/.env
+        - ./.bundle:/export/lodge/.bundle
+        - ./Gemfile:/export/lodge/Gemfile
+        - ./Gemfile.lock:/export/lodge/Gemfile.lock
+        - ./Rakefile:/export/lodge/Rakefile
+        - ./app:/export/lodge/app
+        - ./bin:/export/lodge/bin
+        - ./config:/export/lodge/config
+        - ./config.ru:/export/lodge/config.ru
+        - ./db:/export/lodge/db
+        - ./lib:/export/lodge/lib
+        - ./lodge01.png:/export/lodge/lodge01.png
+        - ./lodge02.png:/export/lodge/lodge02.png
+        - ./log:/export/lodge/log
+        - ./public:/export/lodge/public
+        - ./setup:/export/lodge/setup
+        - ./spec:/export/lodge/spec
+        - ./test:/export/lodge/test
+        - ./tmp:/export/lodge/tmp
+        - ./vendor:/export/lodge/vendor
+    command: bundle exec rake emoji
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+        - "3000:3000"
+    depends_on:
+        - db
+          #    - solr
